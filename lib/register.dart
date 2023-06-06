@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:diet_app/api.dart';
@@ -51,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 Center(
                   child: Image.asset(
-                    'assets/gaslogo.png',
+                    'assets/diet.png',
                     width: 200, // set the desired width
                     height: 200, // set the desired height
                   ),
@@ -63,8 +64,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 const Center(
                   child: Text(
-                    'GAS JANJA',
-                    style: TextStyle(fontSize: 26, color: Colors.black),
+                    'DIET APP',
+                    style: TextStyle(
+                        fontSize: 26,
+                        color: Colors.orange,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 const SizedBox(
@@ -116,37 +120,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      TextFormField(
-                        controller: userNameController,
-                        validator: validateUsername,
-                        // keyboardType: TextInputType.phone,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColor.kPlaceholder3,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              8,
-                            ),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: 'Username',
-                          hintStyle: const TextStyle(
-                            color: AppColor.kTextColor1,
-                            fontSize: 14,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                        ),
-                      ),
+                      // TextFormField(
+                      //   controller: userNameController,
+                      //   validator: validateUsername,
+                      //   // keyboardType: TextInputType.phone,
+                      //   style: Theme.of(context).textTheme.bodyMedium,
+                      //   decoration: InputDecoration(
+                      //     filled: true,
+                      //     fillColor: AppColor.kPlaceholder3,
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(
+                      //         8,
+                      //       ),
+                      //       borderSide: BorderSide.none,
+                      //     ),
+                      //     hintText: 'Username',
+                      //     hintStyle: const TextStyle(
+                      //       color: AppColor.kTextColor1,
+                      //       fontSize: 14,
+                      //     ),
+                      //     contentPadding: const EdgeInsets.symmetric(
+                      //       horizontal: 12,
+                      //       vertical: 8,
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 30,
                       ),
                       TextFormField(
                         controller: userEmailController,
-                        validator: validateEmail,
+                        // validator: validateEmail,R
                         // keyboardType: TextInputType.phone,
                         style: Theme.of(context).textTheme.bodyMedium,
                         decoration: InputDecoration(
@@ -201,31 +205,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(
                         height: 30,
                       ),
-                      TextFormField(
-                        controller: userPhoneController,
-                        validator: validateMobile,
-                        keyboardType: TextInputType.phone,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColor.kPlaceholder3,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              8,
-                            ),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: 'Phone Number',
-                          hintStyle: const TextStyle(
-                            color: AppColor.kTextColor1,
-                            fontSize: 14,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                        ),
-                      ),
+                      // TextFormField(
+                      //   controller: userPhoneController,
+                      //   validator: validateMobile,
+                      //   keyboardType: TextInputType.phone,
+                      //   style: Theme.of(context).textTheme.bodyMedium,
+                      //   decoration: InputDecoration(
+                      //     filled: true,
+                      //     fillColor: AppColor.kPlaceholder3,
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(
+                      //         8,
+                      //       ),
+                      //       borderSide: BorderSide.none,
+                      //     ),
+                      //     hintText: 'Phone Number',
+                      //     hintStyle: const TextStyle(
+                      //       color: AppColor.kTextColor1,
+                      //       fontSize: 14,
+                      //     ),
+                      //     contentPadding: const EdgeInsets.symmetric(
+                      //       horizontal: 12,
+                      //       vertical: 8,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -237,20 +241,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Center(
                   child: MaterialButton(
                     elevation: 0,
-                     color: const Color.fromARGB(255, 76, 175, 147),
+                    color: Colors.orange,
                     height: 50,
                     minWidth: 500,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
-                    onPressed: () {
-                      _submit();
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => OTP_Screen(),
-                      //   ),
-                      // );
-                    },
+                    onPressed: signUp
+
+                    // _submit();
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => OTP_Screen(),
+                    //   ),
+                    // );
+                    ,
                     child: const Text(
                       'Register',
                       style: TextStyle(color: Colors.white),
@@ -329,16 +334,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  String? validateEmail(String? value) {
-    String pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = RegExp(pattern);
-    if (!regex.hasMatch(value!)) {
-      return 'Enter Valid Email';
-    } else {
-      return null;
-    }
-  }
+  // String? validateEmail(String? value) {
+  //   String pattern =
+  //       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  //   RegExp regex = RegExp(pattern);
+  //   if (!regex.hasMatch(value!)) {
+  //     return 'Enter Valid Email';
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   String? validateMobile(String? value) {
 // Indian Mobile number are of 10 digit only
@@ -362,7 +367,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 // Indian Mobile number are of 10 digit only
     if (value!.isEmpty) {
       return 'Password Field must not be empty';
-    } else if (value.length < 8)
+    } else if (value.length < 6)
       return 'Password must be of 8 or more digit';
     else
       return null;
@@ -416,8 +421,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         //   _isLoading = false;
         // });
 
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => LoginScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       } else if (res.statusCode == 400) {
         print('hhh');
         // setState(() {
@@ -429,7 +434,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     // ignore: avoid_print
   }
+
+  Future signUp() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: userEmailController.text.trim(),
+          password: userPasswordController.text.trim());
+      return Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+  }
 }
-
-
-// **************** Register Ends here ***************************

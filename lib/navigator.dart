@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 //import 'package:dietapp/home.dart';
 //import 'package:dietapp/login.dart';
 //import 'package:dietapp/profile.dart';
-import 'settings.dart';
 import 'profile.dart';
 import 'login.dart';
 import 'home.dart';
@@ -63,6 +62,7 @@ class _NavigatorWidgetState extends State<NavigatorWidget> {
       HomeScreen(),
       // InputPage(),
       ContactScreen(),
+      // ContactUsPage(),
       ProfileScreen(),
     ];
 

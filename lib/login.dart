@@ -68,8 +68,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const Center(
                           child: Text(
-                            'DIET APP',
-                            style: TextStyle(fontSize: 26, color: Colors.black),
+                            'DIET PLAN',
+                            style: TextStyle(
+                                fontSize: 26,
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         const SizedBox(
@@ -204,10 +207,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           minWidth: 500,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
-                          onPressed: () {
-                            _submit();
-                            // _login();
-                          },
+                          onPressed: signIn,
+                          // _submit();
+                          // _login();
+
                           child: const Text(
                             'Login',
                             style: TextStyle(color: Colors.white),
@@ -276,6 +279,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(
                           height: 30,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Dont have an Account! ",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RegisterScreen()));
+                              },
+                              child: Text(
+                                'Register Here',
+                                style: TextStyle(color: Colors.blue),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -420,7 +446,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: userEmailController.text, password: userPasswordController.text);
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: userEmailController.text,
+          password: userPasswordController.text);
+      return Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NavigatorWidget(),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      print("------------------------");
+      print(e);
+       showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Sign In Error"),
+            content: Text(e.message.toString()),
+            actions: [
+              MaterialButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      
+    }
   }
 }

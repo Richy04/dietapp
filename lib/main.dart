@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 200,
             ),
             Text(
-              "Diet App",
+              "Diet Plan",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             )
           ],

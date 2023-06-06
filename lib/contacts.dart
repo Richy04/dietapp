@@ -181,3 +181,159 @@ class CustomListTile2 extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+// import 'package:ionicons/ionicons.dart';
+// import 'package:url_launcher/url_launcher.dart';
+// import 'package:flutter_email_sender/flutter_email_sender.dart';
+// import 'package:maps_launcher/maps_launcher.dart';
+// import 'package:flutter/material.dart';
+// // import 'package:flutter_icons/flutter_icons.dart';
+
+// class ContactUsPage extends StatelessWidget {
+//   // Contact options
+//   final List<ContactOption> contactOptions = [
+//     ContactOption(
+//       label: 'Phone',
+//       value: '+255719401594',
+//       icon: Icons.phone,
+//       launchMethod: launchPhone,
+//     ),
+//     ContactOption(
+//       label: 'Email',
+//       value: 'georgemushi2000@gmail.com',
+//       icon: Icons.email,
+//       launchMethod: launchEmail,
+//     ),
+//     ContactOption(
+//       label: 'Website',
+//       value: 'https://www.google.com',
+//       icon: Icons.web,
+//       launchMethod: launchURL,
+//     ),
+//     ContactOption(
+//       label: 'Location',
+//       value: 'Dar es salaam, Tanzania',
+//       icon: Icons.location_on,
+//       launchMethod: launchMaps,
+//     ),
+//     ContactOption(
+//       label: 'Instagram',
+//       value: 'instagram_username',
+//       icon: Ionicons.logo_instagram,
+//       launchMethod: launchInstagram,
+//     ),
+//     ContactOption(
+//       label: 'Twitter',
+//       value: 'mastra2000',
+//       icon:Ionicons.logo_twitter,
+//       launchMethod: launchTwitter,
+//     ),
+//     ContactOption(
+//       label: 'Telegram',
+//       value: 'adammushy',
+//       icon: Ionicons.send,
+//       launchMethod: launchTelegram,
+//     ),
+//   ];
+
+//   // Method to launch phone dialer
+//   static Future<void> launchPhone(String phoneNumber) async {
+//     final url = 'tel:$phoneNumber';
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
+
+//   // Method to launch email client
+//   static Future<void> launchEmail(String emailAddress) async {
+//     final Email email = Email(
+//       recipients: [emailAddress],
+//     );
+//     await FlutterEmailSender.send(email);
+//   }
+
+//   // Method to launch URL in browser
+//   static Future<void> launchURL(String url) async {
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
+
+//   // Method to launch maps app
+//   static Future<void> launchMaps(String address) async {
+//     MapsLauncher.launchQuery(address);
+//   }
+
+//   static launchInstagram(String username) async {
+//     final url = 'https://www.instagram.com/$username';
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
+
+//   static launchTwitter(String username) async {
+//     final url = 'https://twitter.com/$username';
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
+
+//   static launchTelegram(String username) async {
+//     final url = 'https://t.me/$username';
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Contact Us'),
+//       ),
+//       body: ListView.builder(
+//         itemCount: contactOptions.length,
+//         itemBuilder: (context, index) {
+//           final contactOption = contactOptions[index];
+//           return ListTile(
+//             leading: Icon(contactOption.icon),
+//             title: Text(contactOption.label),
+//             subtitle: Text(contactOption.value),
+//             onTap: () {
+//               contactOption.launchMethod(contactOption.value);
+//             },
+//           );
+//         },
+        
+//       ),
+//     );
+//   }
+// }
+
+// class ContactOption {
+//   final String label;
+//   final String value;
+//   final IconData icon;
+//   final Function(String) launchMethod;
+
+//   ContactOption({
+//     required this.label,
+//     required this.value,
+//     required this.icon,
+//     required this.launchMethod,
+// });
+// }

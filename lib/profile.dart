@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diet_app/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,8 +26,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   checkLoginStatus() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("token") == null) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
   }
 
@@ -127,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const CircleAvatar(
                 backgroundImage: NetworkImage(
                     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
-                radius: 50.0,
+                radius: 80.0,
               ),
               const SizedBox(height: 20.0),
 
@@ -219,10 +220,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // ),
               InkWell(
                 onTap: () {
-                  _logoutDialog(context);
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 },
-
-                
                 child: ListTile(
                   title: const Text(
                     ("Sign out"),
@@ -307,7 +308,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-    
     );
   }
 }
